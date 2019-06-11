@@ -10,37 +10,36 @@ SET @a_row_num = 0;
 SELECT * 
 FROM 
 (
-	SELECT  MAX(Doctor) AS Doctor ,MAX(Professor) AS Professor,MAX(Singer) AS  Singer, MAX(Actor) AS Actor
-	FROM 
-	(
-		SELECT 
-			num,
-		   CASE WHEN occupation = 'Doctor' THEN NAME END AS 'Doctor' ,
-		   CASE WHEN occupation = 'Actor' THEN NAME  END AS 'Actor', 
-		   CASE WHEN occupation = 'Professor' THEN NAME END AS 'Professor', 
-		   CASE WHEN occupation = 'Singer' THEN NAME  END AS 'Singer'
-		FROM
-		(
-			SELECT 
-			CASE WHEN occupation = 'Doctor' THEN @d_row_num:=@d_row_num+1
-			     ELSE  
-			 	CASE WHEN occupation = 'Actor' THEN @a_row_num:=@a_row_num+1
-				     ELSE 
-				 	CASE WHEN occupation = 'Professor' THEN @p_row_num:=@p_row_num+1
-					     ELSE 
-					        CASE WHEN occupation = 'Singer' THEN @s_row_num:=@s_row_num+1
-					 	     ELSE  CONCAT('NULL',":0") 	
-					        END 
-				        END
-			        END 
-			END AS 'num',
-			NAME ,
-			occupation
-			FROM occupations
-			ORDER BY NAME
-		)rslt1
-	)rslt2
-	GROUP BY num
+    SELECT  MAX(Doctor) AS Doctor ,MAX(Professor) AS Professor,MAX(Singer) AS  Singer, MAX(Actor) AS Actor
+    FROM 
+    (
+        SELECT 
+            num,
+           CASE WHEN occupation = 'Doctor' THEN NAME END AS 'Doctor' ,
+           CASE WHEN occupation = 'Actor' THEN NAME  END AS 'Actor', 
+           CASE WHEN occupation = 'Professor' THEN NAME END AS 'Professor', 
+           CASE WHEN occupation = 'Singer' THEN NAME  END AS 'Singer'
+        FROM
+        (
+            SELECT 
+            CASE WHEN occupation = 'Doctor' THEN @d_row_num:=@d_row_num+1
+                 ELSE  
+                    CASE WHEN occupation = 'Actor' THEN @a_row_num:=@a_row_num+1
+                         ELSE 
+                             CASE WHEN occupation = 'Professor' THEN @p_row_num:=@p_row_num+1
+                                  ELSE 
+                                     CASE WHEN occupation = 'Singer' THEN @s_row_num:=@s_row_num+1
+                                          ELSE  CONCAT('NULL',":0")     
+                                     END
+                             END
+                   END 
+            END AS 'num',
+            NAME ,
+            occupation
+            FROM occupations
+            ORDER BY NAME
+        )rslt1
+    )rslt2
+    GROUP BY num
 )rslt3
 ORDER BY Doctor IS NULL ASC,Doctor ASC ,Professor IS NULL ASC,Professor ASC,Singer IS NULL ASC,Singer ASC ,Actor IS NULL ASC, Actor ASC
-
