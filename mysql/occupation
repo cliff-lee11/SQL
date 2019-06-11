@@ -22,17 +22,17 @@ FROM
 		FROM
 		(
 			SELECT 
-				CASE WHEN occupation = 'Doctor' THEN @d_row_num:=@d_row_num+1
-									ELSE  
-									CASE WHEN occupation = 'Actor' THEN @a_row_num:=@a_row_num+1
-											ELSE 
-											  CASE WHEN occupation = 'Professor' THEN @p_row_num:=@p_row_num+1
-											  ELSE 
-												CASE WHEN occupation = 'Singer' THEN @s_row_num:=@s_row_num+1
-												ELSE  CONCAT('NULL',":0") 	
-												END
-											  END
-									END 
+			CASE WHEN occupation = 'Doctor' THEN @d_row_num:=@d_row_num+1
+			     ELSE  
+			 	CASE WHEN occupation = 'Actor' THEN @a_row_num:=@a_row_num+1
+				     ELSE 
+				 	CASE WHEN occupation = 'Professor' THEN @p_row_num:=@p_row_num+1
+					     ELSE 
+					        CASE WHEN occupation = 'Singer' THEN @s_row_num:=@s_row_num+1
+					 	     ELSE  CONCAT('NULL',":0") 	
+					        END 
+				        END
+			        END 
 			END AS 'num',
 			NAME ,
 			occupation
